@@ -64,6 +64,12 @@ No browser tabs, no dashboards. Just glance down.
 
 > The screenshots use **demo data** (`npm run demo`) — no real accounts.
 
+### 🍎 On macOS
+
+Captured by the CI smoke test on a real **macOS** runner — same app, native system font, no Windows-only controls:
+
+<p align="center"><img src="docs/img/mac-popup.png" alt="Usage Rings on macOS" width="360" />&nbsp;&nbsp;&nbsp;<img src="docs/img/mac-hover.png" alt="Hover card on macOS" width="272" /></p>
+
 ## 📥 Install
 
 ### Option A — download a build (easiest)
@@ -100,7 +106,7 @@ The app creates a *Usage Rings* Start-menu entry and starts with Windows (turn t
 4. macOS will ask to use the *"Usage Rings Safe Storage"* Keychain item — choose **Always Allow**. It's where your sign-in tokens are kept (encrypted).
 5. Click a ring → **＋** to add your first account.
 
-> **macOS status:** the Mac build is produced and smoke-tested by GitHub Actions on real macOS runners on every release (tray icons, popup, hover card). The author develops on Windows, so if something looks off on your Mac, please [open an issue](https://github.com/rusavladev/claude-usage-rings/issues) — screenshots welcome.
+> **macOS status:** every push is smoke-tested by GitHub Actions on real macOS runners (4 tray icons, popup and hover card all come up and render — see the screenshots above), and release builds are smoke-tested the same way. The author develops on Windows, so if something looks off on your Mac, please [open an issue](https://github.com/rusavladev/claude-usage-rings/issues) — screenshots welcome.
 </details>
 
 ### Option B — run from source

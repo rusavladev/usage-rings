@@ -70,7 +70,7 @@ header { display: flex; align-items: center; justify-content: space-between; mar
 .pace.ok { color: var(--ok); } .pace.warn { color: var(--warn); } .pace.hot { color: var(--hot); } .pace.idle { color: var(--muted); }
 
 .scoped { margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--line); display: grid; gap: 9px; }
-.scoped .s { display: grid; grid-template-columns: 74px 1fr 38px; align-items: center; gap: 10px; font-size: 11.5px; color: var(--muted); }
+.scoped .s { display: grid; grid-template-columns: 104px 1fr 38px; /* wide enough for the macOS system font */ align-items: center; gap: 10px; font-size: 11.5px; color: var(--muted); }
 .scoped .s .bar { height: 5px; }
 .scoped .s span:last-child { text-align: right; color: var(--text); font-variant-numeric: tabular-nums; }
 
