@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'self' 'unsafe-inline'; script-src 'self'; img-src 'self' data:" />
+  <title>Usage Rings</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div id="app">
+    <header>
+      <div class="brand">
+        <svg viewBox="0 0 100 100" width="22" height="22" aria-hidden="true">
+          <circle cx="50" cy="50" r="42" fill="none" stroke="#d97757" stroke-width="12" stroke-dasharray="190 264" stroke-linecap="round" transform="rotate(-90 50 50)" />
+          <circle cx="50" cy="50" r="22" fill="none" stroke="#3dd6a0" stroke-width="12" stroke-dasharray="70 138" stroke-linecap="round" transform="rotate(-90 50 50)" />
+        </svg>
+        <span>Usage Rings</span>
+        <span id="demo-badge" class="badge" hidden>demo</span>
+      </div>
+      <div class="actions">
+        <button id="btn-pin" data-action="pin" title="Pin icons to the taskbar" aria-label="Pin icons to the taskbar">
+          <svg viewBox="0 0 24 24"><path d="M9 4h6l-1 5 3 3v2H7v-2l3-3-1-5zM12 14v6" /></svg>
+        </button>
+        <button data-action="refresh-all" title="Refresh now" aria-label="Refresh now">
+          <svg viewBox="0 0 24 24"><path d="M20 12a8 8 0 1 1-2.34-5.66M20 4v5h-5" /></svg>
+        </button>
+        <button data-action="toggle-add" title="Add account" aria-label="Add account">
+          <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14" /></svg>
+        </button>
+        <button id="btn-settings" data-action="toggle-settings" title="Settings" aria-label="Settings">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3" /><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.9-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.9.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.9 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.9l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.9.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.9-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.9V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z" /></svg>
+        </button>
+        <button data-action="quit" title="Quit" aria-label="Quit">
+          <svg viewBox="0 0 24 24"><path d="M12 3v8M6.3 6.8a8 8 0 1 0 11.4 0" /></svg>
+        </button>
+      </div>
+    </header>
+    <section id="banner" hidden></section>
+    <section id="add-panel" hidden></section>
+    <section id="strip"></section>
+    <section id="detail"></section>
+    <section id="settings" hidden></section>
+  </div>
+  <script src="shapes.js"></script>
+  <script src="renderer.js"></script>
+</body>
+</html>

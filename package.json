@@ -1,0 +1,44 @@
+{
+  "name": "claude-usage-rings",
+  "version": "0.1.0",
+  "description": "Live Claude and ChatGPT usage rings for every account, in your Windows tray / macOS menu bar.",
+  "main": "src/main/main.js",
+  "scripts": {
+    "start": "electron .",
+    "demo": "electron . --demo",
+    "smoke": "electron . --smoke smoke-out",
+    "test": "node --test \"test/*.test.js\"",
+    "pack": "node scripts/pack.js",
+    "icons": "node scripts/make-icon.js",
+    "screenshots": "electron . --demo --screenshots docs/img"
+  },
+  "keywords": [
+    "claude",
+    "anthropic",
+    "chatgpt",
+    "codex",
+    "openai",
+    "usage",
+    "rate-limit",
+    "tray",
+    "menu-bar",
+    "electron"
+  ],
+  "license": "MIT",
+  "devDependencies": {
+    "@electron/packager": "^20.3.0",
+    "electron": "^45.0.0"
+  },
+  "author": "rusavladev",
+  "homepage": "https://github.com/rusavladev/claude-usage-rings#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rusavladev/claude-usage-rings.git"
+  },
+  "bugs": {
+    "url": "https://github.com/rusavladev/claude-usage-rings/issues"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

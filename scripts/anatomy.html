@@ -1,0 +1,47 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8" />
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; width: 1000px; height: 520px; overflow: hidden; font-family: -apple-system, 'SF Pro Text', 'Segoe UI Variable Text', 'Segoe UI', system-ui, sans-serif; color: #ececf1; }
+  body {
+    background:
+      radial-gradient(520px 320px at 20% 10%, rgba(217, 119, 87, 0.22), transparent 60%),
+      radial-gradient(520px 340px at 85% 90%, rgba(76, 141, 255, 0.18), transparent 60%),
+      #0d0e12;
+    position: relative;
+  }
+  #ring { position: absolute; left: 290px; top: 50px; width: 420px; height: 420px; }
+  svg { position: absolute; inset: 0; }
+  .lbl { position: absolute; font-size: 17px; line-height: 1.25; width: 230px; }
+  .lbl b { display: block; font-size: 18px; margin-bottom: 2px; }
+  .lbl span { color: #9fa1ad; font-size: 14.5px; }
+  .l { text-align: right; left: 20px; }
+  .r { left: 750px; }
+</style>
+</head>
+<body>
+  <img id="ring" src="../docs/img/ring-big.png" />
+  <svg width="1000" height="520" viewBox="0 0 1000 520">
+    <g stroke="#ffffff" stroke-opacity="0.55" stroke-width="1.5" fill="none">
+      <path d="M255 125 L353 175" />
+      <path d="M255 207 L426 217" />
+      <path d="M255 292 L456 334" />
+      <path d="M255 382 L391 390" />
+      <path d="M745 252 L667 290" />
+      <path d="M745 332 L500 260" />
+    </g>
+    <g fill="#fff">
+      <circle cx="353" cy="175" r="4" /><circle cx="426" cy="217" r="4" /><circle cx="456" cy="334" r="4" />
+      <circle cx="391" cy="390" r="4" /><circle cx="667" cy="290" r="4" /><circle cx="500" cy="260" r="4" />
+    </g>
+  </svg>
+  <div class="lbl l" style="top:100px"><b>Outer ring</b><span>5-hour session</span></div>
+  <div class="lbl l" style="top:182px"><b>Inner ring</b><span>weekly limit</span></div>
+  <div class="lbl l" style="top:267px"><b>White tick</b><span>end of the time that's left</span></div>
+  <div class="lbl l" style="top:357px"><b>Brighter track</b><span>time left in the window</span></div>
+  <div class="lbl r" style="top:225px"><b>Coloured arc</b><span>quota left · green → amber → red</span></div>
+  <div class="lbl r" style="top:305px"><b>Centre dot</b><span>the account's own colour</span></div>
+</body>
+</html>

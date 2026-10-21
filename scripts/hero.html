@@ -1,0 +1,51 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8" />
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; width: 1600px; height: 900px; overflow: hidden; font-family: -apple-system, 'SF Pro Display', 'Segoe UI Variable Display', 'Segoe UI', system-ui, sans-serif; color: #ececf1; }
+  body {
+    background:
+      radial-gradient(900px 500px at 12% 8%, rgba(217, 119, 87, 0.30), transparent 60%),
+      radial-gradient(900px 600px at 92% 85%, rgba(76, 141, 255, 0.22), transparent 60%),
+      radial-gradient(700px 500px at 60% 0%, rgba(165, 107, 255, 0.16), transparent 60%),
+      #0d0e12;
+    position: relative;
+  }
+  .brand { position: absolute; left: 90px; top: 78px; display: flex; align-items: center; gap: 22px; }
+  .brand img { width: 92px; height: 92px; }
+  h1 { margin: 0; font-size: 76px; font-weight: 700; letter-spacing: -2px; line-height: 1; }
+  .tag { position: absolute; left: 90px; top: 214px; width: 560px; font-size: 27px; line-height: 1.42; color: #b9bbc6; }
+  .tag b { color: #fff; font-weight: 600; }
+  .pills { position: absolute; left: 90px; top: 410px; display: flex; flex-wrap: wrap; gap: 12px; width: 540px; }
+  .pill { padding: 9px 18px; border-radius: 99px; background: rgba(255, 255, 255, 0.07); border: 1px solid rgba(255, 255, 255, 0.1); font-size: 19px; color: #d6d8e0; }
+  .shot { position: absolute; border-radius: 16px; box-shadow: 0 40px 90px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.08); }
+  #s1 { left: 690px; top: 70px; width: 400px; }
+  #s2 { left: 1120px; top: 120px; width: 400px; }
+  .bar { position: absolute; left: 90px; right: 90px; bottom: 50px; height: 74px; border-radius: 18px; background: rgba(32, 32, 36, 0.92); border: 1px solid rgba(255, 255, 255, 0.09); display: flex; align-items: center; justify-content: flex-end; gap: 22px; padding: 0 34px; box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5); }
+  .bar .sys { color: #b9bbc6; font-size: 18px; margin-left: 10px; text-align: right; line-height: 1.25; }
+  .bar img.ic { width: 44px; height: 44px; }
+  .bar .chev { color: #b9bbc6; font-size: 22px; }
+  #hover { position: absolute; width: 272px; bottom: 140px; right: 330px; border-radius: 12px; box-shadow: 0 24px 60px rgba(0, 0, 0, 0.6); }
+</style>
+</head>
+<body>
+  <div class="brand"><img src="../assets/icon.png" /><h1>Usage Rings</h1></div>
+  <div class="tag">See how much of your <b>Claude</b> and <b>ChatGPT</b> limits are left &mdash; for <b>every account</b> &mdash; as live rings right next to your clock.</div>
+  <div class="pills"><span class="pill">5-hour + weekly limits</span><span class="pill">Multiple accounts</span><span class="pill">Smart notifications</span><span class="pill">9 ring shapes</span><span class="pill">Windows &amp; macOS</span></div>
+
+  <img class="shot" id="s1" src="../docs/img/popup-personal.png" />
+  <img class="shot" id="s2" src="../docs/img/popup-hexagon.png" />
+
+  <div class="bar">
+    <span class="chev">&#8963;</span>
+    <img class="ic" src="../docs/img/tray-0.png" />
+    <img class="ic" src="../docs/img/tray-1.png" />
+    <img class="ic" src="../docs/img/tray-2.png" />
+    <img class="ic" src="../docs/img/tray-3.png" />
+    <span class="sys">ENG<br /></span>
+    <span class="sys">3:55 PM<br />10/21/2026</span>
+  </div>
+</body>
+</html>
