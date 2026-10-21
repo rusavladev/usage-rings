@@ -1,0 +1,71 @@
+name: Release
+
+# Push a tag like v0.1.0 (or run manually) to build downloadable apps and attach them to a GitHub release.
+on:
+  push:
+    tags: ['v*']
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    name: Build (${{ matrix.name }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { name: windows-x64, os: windows-latest, platform: win32, arch: x64 }
+          - { name: macos-arm64, os: macos-latest, platform: darwin, arch: arm64 }
+          - { name: macos-x64, os: macos-13, platform: darwin, arch: x64 }
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm test
+      - name: Package
+        run: npm run pack -- --platform=${{ matrix.platform }} --arch=${{ matrix.arch }}
+
+      - name: Smoke test the packaged app (Windows)
+        if: matrix.platform == 'win32'
+        shell: pwsh
+        run: |
+          & ".\dist\Usage Rings-win32-x64\Usage Rings.exe" --smoke smoke-out
+          if (-not (Test-Path smoke-out\smoke-result.json)) { throw "smoke test produced no result" }
+          Get-Content smoke-out\smoke-result.json
+
+      - name: Smoke test the packaged app (macOS)
+        if: matrix.platform == 'darwin'
+        run: |
+          "dist/Usage Rings-darwin-${{ matrix.arch }}/Usage Rings.app/Contents/MacOS/Usage Rings" --smoke smoke-out
+          cat smoke-out/smoke-result.json
+
+      - name: Zip (Windows)
+        if: matrix.platform == 'win32'
+        shell: pwsh
+        run: Compress-Archive -Path "dist\Usage Rings-win32-x64" -DestinationPath "UsageRings-${{ matrix.name }}.zip"
+
+      - name: Zip (macOS)
+        if: matrix.platform == 'darwin'
+        run: ditto -c -k --keepParent "dist/Usage Rings-darwin-${{ matrix.arch }}/Usage Rings.app" "UsageRings-${{ matrix.name }}.zip"
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: UsageRings-${{ matrix.name }}
+          path: |
+            UsageRings-${{ matrix.name }}.zip
+            smoke-out/
+
+      - name: Attach to the GitHub release
+        if: startsWith(github.ref, 'refs/tags/')
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release view "${{ github.ref_name }}" >/dev/null 2>&1 || gh release create "${{ github.ref_name }}" --title "${{ github.ref_name }}" --generate-notes
+          gh release upload "${{ github.ref_name }}" "UsageRings-${{ matrix.name }}.zip" --clobber
