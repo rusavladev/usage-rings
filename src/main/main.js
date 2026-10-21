@@ -32,13 +32,35 @@ const MAX_BACKOFF_MS = 30 * 60 * 1000;
 const MANUAL_COOLDOWN_MS = 20 * 1000;
 const POPUP_W = 400;
 const HOVER_W = 272;
-const USER_AGENT = `claude-usage-rings/${require('../../package.json').version}`;
+const USER_AGENT = `usage-rings/${require('../../package.json').version}`;
 const fetchImpl = (url, opts) => net.fetch(url, opts);
 
 if (!DEMO && !app.requestSingleInstanceLock()) app.quit();
 // Keep the same data folder whether we run from source or as the packaged "Usage Rings" app.
+// The project used to be called "claude-usage-rings": move its data folder (accounts + the key that
+// decrypts the tokens) to the new name once, so existing sign-ins survive the rename.
+function migrateLegacyData() {
+  const base = app.getPath('appData');
+  const oldDir = path.join(base, 'claude-usage-rings');
+  const newDir = path.join(base, 'usage-rings');
+  if (DEMO || fs.existsSync(newDir) || !fs.existsSync(oldDir)) return;
+  try {
+    fs.renameSync(oldDir, newDir);
+  } catch {
+    try {
+      fs.mkdirSync(newDir, { recursive: true });
+      for (const f of ['accounts.json', 'Local State', 'usage-debug.json']) {
+        if (fs.existsSync(path.join(oldDir, f))) fs.copyFileSync(path.join(oldDir, f), path.join(newDir, f));
+      }
+    } catch {
+      /* first run will simply start empty */
+    }
+  }
+}
+migrateLegacyData();
+
 // Demo / smoke / screenshot runs use a throw-away data folder so they never touch (or lock) your real one.
-app.setPath('userData', DEMO ? path.join(require('os').tmpdir(), 'usage-rings-demo') : path.join(app.getPath('appData'), 'claude-usage-rings'));
+app.setPath('userData', DEMO ? path.join(require('os').tmpdir(), 'usage-rings-demo') : path.join(app.getPath('appData'), 'usage-rings'));
 const AUMID = 'UsageRings.App';
 if (IS_WIN) app.setAppUserModelId(AUMID);
 
@@ -78,6 +100,7 @@ function detectTaskbarDark() {
 
 // A stable GUID per tray icon lets Windows keep a per-icon record (position, pinned state).
 const trayGuid = (key) => {
+  // (seed kept from the project's old name on purpose: changing it would give every icon a new identity)
   const h = crypto.createHash('sha1').update('claude-usage-rings:' + key).digest('hex');
   return `${h.slice(0, 8)}-${h.slice(8, 12)}-4${h.slice(13, 16)}-a${h.slice(17, 20)}-${h.slice(20, 32)}`;
 };

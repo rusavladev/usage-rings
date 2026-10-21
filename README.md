@@ -7,8 +7,8 @@
 **Know how much Claude and ChatGPT you have left — before you hit the wall.**<br/>
 One tiny two-ring icon per account, right next to your clock. Hover for details. Click for the full picture.
 
-[![CI](https://github.com/rusavladev/claude-usage-rings/actions/workflows/ci.yml/badge.svg)](https://github.com/rusavladev/claude-usage-rings/actions/workflows/ci.yml)
-[![Release](https://img.shields.io/github/v/release/rusavladev/claude-usage-rings?include_prereleases&color=d97757)](https://github.com/rusavladev/claude-usage-rings/releases)
+[![CI](https://github.com/rusavladev/usage-rings/actions/workflows/ci.yml/badge.svg)](https://github.com/rusavladev/usage-rings/actions/workflows/ci.yml)
+[![Release](https://img.shields.io/github/v/release/rusavladev/usage-rings?include_prereleases&color=d97757)](https://github.com/rusavladev/usage-rings/releases)
 [![License: MIT](https://img.shields.io/badge/license-MIT-3dd6a0.svg)](LICENSE)
 ![Platforms](https://img.shields.io/badge/platforms-Windows%20%7C%20macOS-4c8dff)
 ![Electron](https://img.shields.io/badge/built%20with-Electron-a56bff)
@@ -74,7 +74,7 @@ Captured by the CI smoke test on a real **macOS** runner — same app, native sy
 
 ### Option A — download a build (easiest)
 
-Grab the latest zip from the **[Releases page](https://github.com/rusavladev/claude-usage-rings/releases/latest)**:
+Grab the latest zip from the **[Releases page](https://github.com/rusavladev/usage-rings/releases/latest)**:
 
 | Your computer | Download |
 |---|---|
@@ -106,7 +106,7 @@ The app creates a *Usage Rings* Start-menu entry and starts with Windows (turn t
 4. macOS will ask to use the *"Usage Rings Safe Storage"* Keychain item — choose **Always Allow**. It's where your sign-in tokens are kept (encrypted).
 5. Click a ring → **＋** to add your first account.
 
-> **macOS status:** every push is smoke-tested by GitHub Actions on real macOS runners (4 tray icons, popup and hover card all come up and render — see the screenshots above), and release builds are smoke-tested the same way. The author develops on Windows, so if something looks off on your Mac, please [open an issue](https://github.com/rusavladev/claude-usage-rings/issues) — screenshots welcome.
+> **macOS status:** every push is smoke-tested by GitHub Actions on real macOS runners (4 tray icons, popup and hover card all come up and render — see the screenshots above), and release builds are smoke-tested the same way. The author develops on Windows, so if something looks off on your Mac, please [open an issue](https://github.com/rusavladev/usage-rings/issues) — screenshots welcome.
 </details>
 
 ### Option B — run from source
@@ -114,8 +114,8 @@ The app creates a *Usage Rings* Start-menu entry and starts with Windows (turn t
 Requirements: **Node.js 20+** (22 recommended) and **git**.
 
 ```bash
-git clone https://github.com/rusavladev/claude-usage-rings.git
-cd claude-usage-rings
+git clone https://github.com/rusavladev/usage-rings.git
+cd usage-rings
 npm install
 npm start
 ```
@@ -218,7 +218,7 @@ flowchart LR
 
 - Tokens are stored **only on your machine**, encrypted with Electron's `safeStorage` → **Windows DPAPI** / **macOS Keychain**. If encryption isn't available the app refuses to store them rather than falling back to plain text.
 - The app talks **only** to `claude.ai`, `console.anthropic.com`, `api.anthropic.com`, `auth.openai.com` and `chatgpt.com`. No analytics, no telemetry, no third-party servers.
-- Where things live: Windows `%APPDATA%\claude-usage-rings\` · macOS `~/Library/Application Support/claude-usage-rings/`.
+- Where things live: Windows `%APPDATA%\usage-rings\` · macOS `~/Library/Application Support/usage-rings/`.
   `accounts.json` holds your profile names/colours/settings and the *encrypted* tokens; `usage-debug.json` keeps the last raw usage response (percentages and reset times only — handy for bug reports).
 - **Remove an account** in the popup and its tokens are deleted. To wipe everything, delete the folder above.
 

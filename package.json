@@ -1,7 +1,7 @@
 {
-  "name": "claude-usage-rings",
+  "name": "usage-rings",
   "version": "0.1.0",
-  "description": "Live Claude and ChatGPT usage rings for every account, in your Windows tray / macOS menu bar.",
+  "description": "Live usage rings (5-hour + weekly limits) for your Claude and ChatGPT accounts, in your Windows tray / macOS menu bar.",
   "main": "src/main/main.js",
   "scripts": {
     "start": "electron .",
@@ -30,15 +30,16 @@
     "electron": "^45.0.0"
   },
   "author": "rusavladev",
-  "homepage": "https://github.com/rusavladev/claude-usage-rings#readme",
+  "homepage": "https://github.com/rusavladev/usage-rings#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/rusavladev/claude-usage-rings.git"
+    "url": "git+https://github.com/rusavladev/usage-rings.git"
   },
   "bugs": {
-    "url": "https://github.com/rusavladev/claude-usage-rings/issues"
+    "url": "https://github.com/rusavladev/usage-rings/issues"
   },
   "engines": {
     "node": ">=20"
-  }
+  },
+  "productName": "Usage Rings"
 }
