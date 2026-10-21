@@ -35,8 +35,10 @@ jobs:
         if: matrix.platform == 'win32'
         shell: pwsh
         run: |
-          & ".\dist\Usage Rings-win32-x64\Usage Rings.exe" --smoke smoke-out
-          if (-not (Test-Path smoke-out\smoke-result.json)) { throw "smoke test produced no result" }
+          # the exe is a GUI-subsystem program, so wait for it explicitly
+          $p = Start-Process -FilePath ".\dist\Usage Rings-win32-x64\Usage Rings.exe" -ArgumentList "--smoke","smoke-out" -PassThru
+          if (-not $p.WaitForExit(120000)) { $p.Kill(); throw "smoke test timed out" }
+          if ($p.ExitCode -ne 0) { throw "smoke test failed with exit code $($p.ExitCode)" }
           Get-Content smoke-out\smoke-result.json
 
       - name: Smoke test the packaged app (macOS)
