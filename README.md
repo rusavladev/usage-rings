@@ -178,6 +178,7 @@ Global options: **refresh interval** (1 – 60 min, default 5), **start at login
 | **Brighter track** | How much of the window's **time** is left. |
 | **White tick** | End of the time that's left. **Keep the coloured arc ahead of the tick** and you'll make it to the reset. |
 | **Centre dot** | The account's identity colour. |
+| **Red cross ✕** | The **weekly** limit is used up (0 % left) – you are locked out until it resets. |
 
 In the popup you also get a plain-English **pace hint**, e.g. *"At this pace you run out in 2h 29m"* (red), *"10 % ahead of the clock – room to spare"* (green) or *"Limit reached – resets in 2d 22h"*.
 

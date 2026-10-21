@@ -7,6 +7,7 @@
 //   brighter track    = how much of the window's TIME is left
 //   thin white tick   = the end of the time that's left – keep the coloured arc ahead of it
 //   centre dot        = the account's identity colour
+//   red cross         = the weekly limit is used up (0% left) – nothing works until it resets
 
 const Shapes = require('../renderer/shapes');
 
@@ -27,6 +28,10 @@ function levelFor(pct) {
 const colorFor = (pct) => COLORS[levelFor(pct)];
 const clamp01 = (v) => Math.min(1, Math.max(0, v));
 const TAU = Math.PI * 2;
+const CROSS = [255, 59, 48];
+
+// Weekly quota counts as exhausted when it rounds to 0% remaining.
+const isExhausted = (ring) => !!ring && ring.pct != null && 100 - ring.pct < 0.5;
 
 /**
  * @param {object} o
@@ -71,6 +76,19 @@ function renderRings({ size, rings, dark = true, roundCaps = size >= 64, accent 
 
   if (accent) layers.push({ disc: L.dot, color: accent, alpha: 1 });
 
+  // Red cross over everything when the weekly limit (the inner ring) is gone.
+  if (isExhausted(rings[1])) {
+    const m = n * 0.14;
+    const w = Math.max(1, n * 0.045);
+    const edge = dark ? [0, 0, 0] : [255, 255, 255];
+    const diag = [
+      [m, m, n - m, n - m],
+      [n - m, m, m, n - m],
+    ];
+    for (const seg of diag) layers.push({ seg, halfW: w + Math.max(0.5, n * 0.012), color: edge, alpha: 0.4 });
+    for (const seg of diag) layers.push({ seg, halfW: w, color: CROSS, alpha: 1 });
+  }
+
   for (const l of layers) {
     if (!l.caps) continue;
     l.capR = l.thick / 2;
@@ -108,6 +126,12 @@ function renderRings({ size, rings, dark = true, roundCaps = size >= 64, accent 
             let hit = false;
             if (La.disc != null) {
               hit = r <= La.disc;
+            } else if (La.seg != null) {
+              const [x0, y0, x1, y1] = La.seg;
+              const vx = x1 - x0;
+              const vy = y1 - y0;
+              const t = clamp01(((fx - x0) * vx + (fy - y0) * vy) / (vx * vx + vy * vy));
+              hit = Math.hypot(fx - (x0 + t * vx), fy - (y0 + t * vy)) <= La.halfW;
             } else if (La.tick != null) {
               if (rho >= La.rhoIn && rho <= La.rhoOut) {
                 let d = Math.abs(p - La.tick);
@@ -162,4 +186,4 @@ function renderRings({ size, rings, dark = true, roundCaps = size >= 64, accent 
   return out;
 }
 
-module.exports = { renderRings, colorFor, levelFor, COLORS };
+module.exports = { renderRings, colorFor, levelFor, isExhausted, COLORS };

@@ -2,7 +2,7 @@
 const test = require('node:test');
 const assert = require('node:assert/strict');
 const { parseUsage, parseProfile, elapsedFraction, FIVE_HOURS } = require('../src/main/usage');
-const { renderRings, levelFor } = require('../src/main/rings');
+const { renderRings, levelFor, isExhausted } = require('../src/main/rings');
 
 test('parses the flat legacy usage shape', () => {
   const u = parseUsage({
@@ -58,6 +58,24 @@ test('rings rasteriser returns a full RGBA buffer with visible pixels', () => {
   assert.equal(levelFor(10), 'ok');
   assert.equal(levelFor(70), 'warn');
   assert.equal(levelFor(95), 'hot');
+});
+
+test('draws a red cross only when the weekly limit has 0% left', () => {
+  const redPixels = (rings) => {
+    const buf = renderRings({ size: 32, rings });
+    let n = 0;
+    for (let i = 0; i < buf.length; i += 4) if (buf[i] > 200 && buf[i + 1] < 90 && buf[i + 2] < 90 && buf[i + 3] > 200) n++;
+    return n;
+  };
+  assert.equal(isExhausted({ pct: 100 }), true);
+  assert.equal(isExhausted({ pct: 99.6 }), true);
+  assert.equal(isExhausted({ pct: 99 }), false);
+  assert.equal(isExhausted({ pct: null }), false);
+  // the 5-hour ring (and any "hot" arc) alone must not trigger it
+  const base = redPixels([{ pct: 100, elapsed: 0.5 }, { pct: 20, elapsed: 0.5 }]);
+  const crossed = redPixels([{ pct: 20, elapsed: 0.5 }, { pct: 100, elapsed: 0.5 }]);
+  assert.ok(crossed > base + 40, `cross pixels: ${crossed} vs ${base}`);
+  assert.equal(redPixels([{ pct: 20, elapsed: 0.5 }, { pct: 99, elapsed: 0.5 }]) < crossed, true);
 });
 
 test('names per-model limits whose scope is an object (e.g. Fable)', () => {
